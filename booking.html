@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Travel Explorer</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Confirm Your Booking</h1>
+    </header>
+
+    <div class="booking-container">
+        <form id="bookingForm">
+            <label for="packagesName">Package Name:</label>
+            <input type="text" id="packagesName" value="" >
+
+            <label for="persons">Number of Persons:</label>
+            <input type="number" id="persons" min="1" value="1" onchange="updatePrice()">
+
+            <label for="price">Price per Person (INR):</label>
+            <input type="text" id="price" value="1500" readonly>
+
+            <p>Total Price: ₹<span id="totalPrice">1500</span></p>
+
+            <button type="button" class="confirm-btn" onclick="startPayment()">Confirm Booking</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Travel Explorer. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function updatePrice() {
+            const persons = document.getElementById('persons').value;
+            const price = document.getElementById('price').value;
+            const totalPrice = persons * price;
+            document.getElementById('totalPrice').innerText = totalPrice;
+        }
+
+        function startPayment() {
+            const persons = document.getElementById('persons').value;
+            const price = document.getElementById('price').value;
+            const totalPrice = persons * price * 100;  // Razorpay accepts amount in paisa
+
+            var options = {
+                "key": "rzp_test_YOUR_KEY_ID",  
+                "amount": totalPrice, 
+                "currency": "INR",
+                "name": "Travel Explorer",
+                "description": "Booking Confirmation",
+                "image": "images/logo.png",
+                "handler": function (response) {
+                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                    window.location.href = "payment-confirmation.html";
+                },
+                "prefill": {
+                    "name": "Akash Gunjal",
+                    "email": "example@gmail.com",
+                    "contact": "9359534387"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
+</body>
+</html>

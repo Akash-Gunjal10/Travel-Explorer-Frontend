@@ -1,0 +1,134 @@
+<!-- packages.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Packages - Razorpay Integration</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- <header>
+        <h1>Explore Our Travel Packages</h1>
+    </header>
+
+    <div class="packages-container">
+        <section class="packages">
+            <div class="package">
+                <img src="/images/Manali2.jpeg" alt="Manali">
+                <h2>Book Your Travel Package</h2>
+                <p>Price per person: ₹10000</p>
+                <label for="numPersons">Number of Persons:</label>
+                <input type="number" id="numPersons" value="1" min="1">
+                <button id="bookNowBtn">Book Now</button>
+            </div> -->
+
+            <!-- Featured Packages Section -->
+    <section class="featured-packages">
+        
+        <div class="packages-container">
+            <div class="package-card">
+                <img src="/images/Alibaug.jpeg" alt="Alibaug">
+                <h3 id="packageTitle">Alibaug</h3>
+                <p>Price: 5000 Rs</p>
+                <a href="booking.html" class="cta-btn">Book Now</a>
+            </div>
+            <div class="package-card">
+                <img src="/images/Kerala.jpeg" alt="Kerala">
+                <h3 id="packageTitle">Kerala</h3>
+                <p>Price: 8000 Rs</p>
+                <a href="booking.html" class="cta-btn">Book Now</a>
+            </div>
+            <div class="package-card">
+                <img src="/images/Manali1.jpeg" alt="Manali">
+                <h3 id="packageTitle">Manali</h3>
+                <p>Price: 10000 Rs</p>
+                <a href="booking.html" class="cta-btn">Book Now</a>
+            </div>
+            <div class="package-card">
+                <img src="/images/Shimla.jpeg" alt="Manali">
+                <h3 id="packageTitle">Shimala</h3>
+                <p>Price: 10000 Rs</p>
+                <a href="booking.html" class="cta-btn">Book Now</a>
+            </div>
+            <div class="package-card">
+                <img src="/images/Kathmandu.jpeg" alt="Manali">
+                <h3 id="packageTitle">Kathmandu</h3>
+                <p>Price: 10000 Rs</p>
+                <a href="booking.html" class="cta-btn">Book Now</a>
+            </div>
+            <div class="package-card">
+                <img src="/images/Kerala3.jpeg" alt="Manali">
+                <h3 id="packageTitle">Kerala</h3>
+                <p>Price: 10000 Rs</p>
+                <a href="booking.html" class="cta-btn">Book Now</a>
+            </div>
+        </div>
+    </section>
+                <script>
+                   document.getElementById("bookNowBtn").addEventListener("click", function() {
+    let amount = 1500 * document.getElementById("numPersons").value;
+    let upiId = "9359534387@paytm"; // Replace with your UPI ID
+    let name = "Travel Explorer";
+    
+    let upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=Travel+Booking`;
+    
+    // Open UPI Payment Page
+    window.location.href = upiUrl;
+
+    // Show Google Form after 5 seconds (Give time to complete payment)
+    setTimeout(() => {
+        window.open("https://docs.google.com/forms/d/e/1FAIpQLSee8-MMD4UtTNeSuiubwaN2maTl7LR__LNo2dwGFjI8p1aOlQ/viewform?usp=dialog"); // Replace with your actual form link
+    }, 5000);
+});
+// Function to get URL parameters
+function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Get package name from URL
+  let packageName = getQueryParam("package");
+
+  // Display the package name dynamically
+  document.addEventListener("DOMContentLoaded", function () {
+    if (packageName) {
+      document.getElementById("packageTitle").textContent = packageName + " Package";
+    }
+  });
+               
+                    // Function to get the URL parameter
+                    function getQueryParam(param) {
+                      let urlParams = new URLSearchParams(window.location.search);
+                      return urlParams.get(param);
+                    }
+                  
+                    // Get the package name from the URL
+                    let packagesName = getQueryParam("package");
+                  
+                    // Ensure DOM is loaded before modifying it
+                    document.addEventListener("DOMContentLoaded", function () {
+                      let titleElement = document.getElementById("packageTitle");
+                  
+                      if (packageName) {
+                        titleElement.textContent = packageName.charAt(0).toUpperCase() + packageName.slice(1) + " Package";
+                      } else {
+                        titleElement.textContent = "No Package Selected";
+                      }
+                    });
+                  </script>
+                  
+            </body>
+            </html>
